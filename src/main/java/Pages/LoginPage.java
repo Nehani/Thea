@@ -1,5 +1,7 @@
 package Pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -18,7 +20,17 @@ public class LoginPage extends PredefinedActions {
 	@FindBy(xpath = "//button[@type='submit']")
 	private WebElement submitBtn;
 	
+	@FindBy(xpath="//tbody[@class='ant-table-tbody']//tr")
+	private List <WebElement> tableRows;
 	
+	@FindBy(xpath="//*[@id=\\\"root\\\"]/section/section/main/div/div[2]/div[1]/div[1]/div/div/div/span/span/span[1]/input")
+	private WebElement vehicleSearchElement;
+	
+	@FindBy(xpath="//span[@class='anticon anticon-search']")
+	private WebElement searchButton;
+	
+	@FindBy(xpath="//div[text()='No Data']")
+	private WebElement noDataElement;
 
 	// @FindBy(css = "div.organization-logo.shadow>img")
 	// private WebElement logo;
@@ -74,7 +86,17 @@ public class LoginPage extends PredefinedActions {
 	public boolean isPasswordErrorMessageDisplayed() {
 		return isElementDisplayed(passwordElement);
 	}
-
-	// public boolean isLogoDisplayed() {
-	// return isElementDisplayed(logo);
+	
+	public void enterVehichleNumberAndSearch(String vehicleNumber) {
+		setText(vehicleSearchElement, vehicleNumber);
+		clickOnElement(searchButton,true);
+	}
+		
+	public int countTableRows() {
+		return getElementCountFromWebElementList(tableRows, false);
+	}
+	
+	public boolean isTableBlank() {
+		return isElementDisplayed(noDataElement);
+	}
 }

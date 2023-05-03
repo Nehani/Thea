@@ -2,10 +2,12 @@ package Base;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -226,10 +228,21 @@ public class PredefinedActions {
 	public String getAriaSelectedAttribute(WebElement e) {
 		return e.getAttribute("aria-selected");
 	}
-	
+
 	public String getSearchNumber(WebElement e) {
 		return e.getAttribute("search-Element");
-				
+
 	}
+	
+	public int getElementCountFromWebElementList(List <WebElement> e, boolean isWaitRequired) {
+		if(isWaitRequired)
+			wait.until(ExpectedConditions.visibilityOfAllElements(e));
+		return e.size();
+	}
+	
+	public void enterEnterKey(WebElement e) {
+		e.sendKeys(Keys.ENTER);
+	}
+	
 
 }
